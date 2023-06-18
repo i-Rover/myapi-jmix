@@ -5,14 +5,16 @@ import com.company.myapiadminx.entity.WorkProgram;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 import java.util.UUID;
 
-@Service
-@Transactional
+//@Service
+//@Transactional
+@Component
 public class WorkProgramService {
     @Autowired
     private WorkProgramRepository workProgramRepository;
