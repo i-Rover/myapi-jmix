@@ -12,9 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 import java.util.UUID;
 
-//@Service
-//@Transactional
-@Component
+@Service
+@Transactional
+//@Component
 public class WorkProgramService {
     @Autowired
     private WorkProgramRepository workProgramRepository;

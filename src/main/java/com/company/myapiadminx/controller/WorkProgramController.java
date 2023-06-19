@@ -1,7 +1,9 @@
 package com.company.myapiadminx.controller;
 
 import com.company.myapiadminx.entity.WorkProgram;
+import com.company.myapiadminx.responsemodels.WorkBerthProgramModel;
 import com.company.myapiadminx.service.WorkProgramService;
+import com.company.myapiadminx.service.storeprocedure.WorkProgramSp;
 import com.company.myapiadminx.service.util.AuthValidationService;
 import io.jmix.core.DataManager;
 import io.jmix.core.security.CurrentAuthentication;
@@ -26,8 +28,10 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/WorkPrograms")
+@RequestMapping("api/WorkPrograms")
 public class WorkProgramController {
+    @Autowired
+    private WorkProgramSp workProgramSp;
     @Autowired
     private CurrentAuthentication currentAuthentication;
     @Autowired
@@ -35,8 +39,10 @@ public class WorkProgramController {
     @Autowired
     private WorkProgramService workProgramService;
 
-    @GetMapping("/findWorkProgram")
+    @GetMapping("/RequireAccess/findWorkProgram")
     public List<WorkProgram> findWorkProgram(@RequestHeader(value="Authorization")String token, @RequestParam("id") UUID id)throws Exception{
+        UserDetails user = currentAuthentication.getUser();
+        String username = user.getUsername();
         if(token.isBlank()){
             throw new Exception("No token");
         }
@@ -46,23 +52,27 @@ public class WorkProgramController {
                 .list();
     }
 
-    @GetMapping("/hithere")
-    public String hiThere(@RequestHeader(value="Authorization")String token){
+    @GetMapping("/PublicAccess/hithere")
+    public String hiThere(){
         UserDetails user = currentAuthentication.getUser();
         String username = user.getUsername();
         return workProgramService.hiThere();
     }
 
-    @GetMapping("/findWorkProgramAndBerthForm")
+    @GetMapping("/RequireAccess/findWorkProgramAndBerthForm")
     public Optional<WorkProgram> findWorkProgramAndBerthForm(@RequestHeader(value = "Authorization")String token, @RequestParam("id") UUID id)throws Exception{
         if(token.isBlank()){
             throw new Exception("No token");
         }
+        UserDetails user = currentAuthentication.getUser();
+        String username = user.getUsername();
         return workProgramService.findWorkProgramAndBerthForm(id);
     }
 
-    @GetMapping("/findAll")
+    @GetMapping("/RequireAccess/findAll")
     public ResponseEntity<Page<WorkProgram>> findAll(@RequestHeader(value="Authorization")String token, @RequestParam(value="page", defaultValue = "0")int page, @RequestParam(value="size", defaultValue = "5")int size)throws Exception{
+        UserDetails user = currentAuthentication.getUser();
+        String username = user.getUsername();
         if(token.isBlank()){
             throw new Exception("No token");
         }
@@ -71,8 +81,16 @@ public class WorkProgramController {
         return ResponseEntity.ok(workPrograms);
     }
 
-    @GetMapping("/allowanonymous")
-    public String allowanonymous(){
-        return "allowanonymouse";
+    @GetMapping("/PublicAccess/allowAnonymous")
+    public List<WorkProgram> allowAnonymous(@RequestParam("id") UUID id){
+        return dataManager.load(WorkProgram.class)
+                .query("select e from WorkProgram e where e.id=:id")
+                .parameter("id",id)
+                .list();
+    }
+
+    @GetMapping("/PublicAccess/storeProcedure")
+    public List<WorkBerthProgramModel> storeProcedure()throws Exception{
+       return workProgramSp.sp_work_program_w_param();
     }
 }
