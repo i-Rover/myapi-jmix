@@ -32,12 +32,9 @@
             <map>
               <entry key="main">
                 <value>
-                  <DataStoreSettings />
-                </value>
-              </entry>
-              <entry key="postgres">
-                <value>
                   <DataStoreSettings>
+                    <option name="generateDdlType" value="CREATE_AND_UPDATE" />
+                    <option name="nameLengthMode" value="POSTGRES" />
                     <option name="supportedTypes">
                       <option value="postgres" />
                     </option>
@@ -49,5 +46,22 @@
         </ModuleSettings>
       </entry>
     </moduleSettings>
+  </component>
+  <component name="JmixPluginProjectSettings">
+    <option name="savedDbProperties">
+      <list>
+        <SavedDbProperties>
+          <option name="databaseName" value="myapiadminx" />
+          <option name="dbType" value="hsqlfile" />
+          <option name="dbmsVersion" />
+          <option name="host" value=".jmix/hsqldb" />
+          <option name="url" value="jdbc:hsqldb:file:.jmix/hsqldb/myapiadminx" />
+          <option name="user" value="sa" />
+        </SavedDbProperties>
+      </list>
+    </option>
+  </component>
+  <component name="JmixStudioVersionUpdateSettings">
+    <option name="doNotShowAgain" value="true" />
   </component>
 </project>

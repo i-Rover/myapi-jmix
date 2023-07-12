@@ -1,6 +1,7 @@
 package com.company.myapiadminx.controller;
 
 import com.company.myapiadminx.entity.WorkProgram;
+import com.company.myapiadminx.responsemodels.BerthWorkProgramModel;
 import com.company.myapiadminx.responsemodels.WorkBerthProgramModel;
 import com.company.myapiadminx.service.WorkProgramService;
 import com.company.myapiadminx.service.storeprocedure.WorkProgramSp;
@@ -11,6 +12,7 @@ import io.jmix.core.security.SystemAuthenticationToken;
 import io.jmix.rest.impl.service.UserSessionControllerManager;
 import org.atmosphere.config.service.Get;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -89,8 +91,13 @@ public class WorkProgramController {
                 .list();
     }
 
-    @GetMapping("/PublicAccess/storeProcedure")
-    public List<WorkBerthProgramModel> storeProcedure()throws Exception{
-       return workProgramSp.sp_work_program_w_param();
+    @PostMapping("/PublicAccess/storeProcedure")
+    public void updateWorkProgramStoreProcedure()throws Exception{
+        workProgramSp.updateWorkProgramStoreProcedure();
+//        workProgramSp.callMyStoredProcedure();
+    }
+    @PostMapping("/PublicAccess/functionBerthFormAndWorkProgram")
+    public List<BerthWorkProgramModel> functionBerthFormAndWorkProgram()throws Exception{
+        return workProgramSp.functionBerthFormAndWorkProgram();
     }
 }

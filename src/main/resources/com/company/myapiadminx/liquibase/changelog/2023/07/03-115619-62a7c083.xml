@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.11.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="myapi-adminx">
+        <createTable tableName="BERTH_FORM">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_BERTH_FORM"/>
+            </column>
+            <column name="BERTH_NAME" type="VARCHAR(255)"/>
+            <column name="FILE_NAME" type="VARCHAR(1024)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="myapi-adminx">
+        <createTable tableName="WORK_PROGRAM">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_WORK_PROGRAM"/>
+            </column>
+            <column name="WORK_PROGRAM" type="VARCHAR(255)"/>
+            <column name="BERTH_FORM_ID" type="UUID"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="3" author="myapi-adminx">
+        <createIndex indexName="IDX_WORK_PROGRAM_BERTH_FORM" tableName="WORK_PROGRAM">
+            <column name="BERTH_FORM_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="BERTH_FORM_ID" baseTableName="WORK_PROGRAM"
+                                 constraintName="FK_WORK_PROGRAM_ON_BERTH_FORM" referencedColumnNames="ID"
+                                 referencedTableName="BERTH_FORM"/>
+    </changeSet>
+</databaseChangeLog>

@@ -2,12 +2,10 @@ package com.company.myapiadminx.entity;
 
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
 import io.jmix.core.metamodel.annotation.JmixEntity;
-import io.jmix.core.metamodel.annotation.Store;
 
 import javax.persistence.*;
 import java.util.UUID;
 
-@Store(name = "postgres")
 @JmixEntity
 @Table(name = "WORK_PROGRAM", indexes = {
         @Index(name = "IDX_WORK_PROGRAM_BERTH_FORM", columnList = "BERTH_FORM_ID")

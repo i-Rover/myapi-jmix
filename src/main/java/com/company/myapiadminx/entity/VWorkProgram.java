@@ -1,9 +1,8 @@
 package com.company.myapiadminx.entity;
 
-import io.jmix.core.FileRef;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
-import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
+import io.jmix.data.DbView;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,28 +10,39 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.UUID;
 
+@DbView
 @JmixEntity
-@Table(name = "BERTH_FORM")
+@Table(name = "v_work_program")
 @Entity
-public class BerthForm {
+public class VWorkProgram {
     @JmixGeneratedValue
-    @Column(name = "ID", nullable = false)
+    @Column(name = "berth_id", nullable = false)
     @Id
     private UUID id;
 
-    @InstanceName
-    @Column(name = "BERTH_NAME")
+    @Column(name = "berth_name")
     private String berthName;
 
-    @Column(name = "FILE_NAME", length = 1024)
-    private FileRef fileName;
+    @Column(name = "work_program_id")
+    private UUID workProgram;
 
-    public FileRef getFileName() {
-        return fileName;
+    @Column(name = "work_program")
+    private String workProgram1;
+
+    public String getWorkProgram1() {
+        return workProgram1;
     }
 
-    public void setFileName(FileRef fileName) {
-        this.fileName = fileName;
+    public void setWorkProgram1(String workProgram1) {
+        this.workProgram1 = workProgram1;
+    }
+
+    public UUID getWorkProgram() {
+        return workProgram;
+    }
+
+    public void setWorkProgram(UUID workProgram) {
+        this.workProgram = workProgram;
     }
 
     public String getBerthName() {

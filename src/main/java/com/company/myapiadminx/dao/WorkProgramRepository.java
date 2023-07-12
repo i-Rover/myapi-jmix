@@ -17,6 +17,6 @@ public interface WorkProgramRepository extends JmixDataRepository<WorkProgram, U
     Optional<WorkProgram> findWorkProgramAndBerthForm(@Param("id") UUID id);
     @Override
     Page<WorkProgram> findAll(Pageable pageable);
-    @Query("select * from public.sp_work_program_w_param(:work_program_type)")
+    @Query(value = "select * from public.sp_work_program_w_param(:work_program_type)")
     List<WorkBerthProgramModel> updateStoreProcedure(@Param("work_program_type") String work_program_type);
 }
