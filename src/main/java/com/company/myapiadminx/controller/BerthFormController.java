@@ -1,7 +1,9 @@
 package com.company.myapiadminx.controller;
 
+import com.company.myapiadminx.requestmodels.BerthAndWorkProgram;
 import com.company.myapiadminx.service.BerthFormService;
 import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,5 +16,10 @@ public class BerthFormController {
     public void createBerthFormAndUploadFile(@RequestHeader(value="Authorization")String token, @RequestParam String berthName,
                                              @RequestBody MultipartFile file)throws Exception{
         berthFormService.createBerthFormAndUploadFile(berthName, file);
+    }
+
+    @PostMapping("/RequireAccess/createBerthAndWorkProgram")
+    public void createBerthAndWorkProgram(@RequestBody BerthAndWorkProgram berthAndWorkProgram){
+        berthFormService.createBerthAndWorkProgram(berthAndWorkProgram);
     }
 }

@@ -1,6 +1,8 @@
 package com.company.myapiadminx.service;
 
 import com.company.myapiadminx.entity.BerthForm;
+import com.company.myapiadminx.entity.WorkProgram;
+import com.company.myapiadminx.requestmodels.BerthAndWorkProgram;
 import io.jmix.core.DataManager;
 import io.jmix.core.FileRef;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,5 +22,15 @@ public class BerthFormService {
         berthForm.setBerthName(berthName);
         berthForm.setFileName((FileRef) file);
         dataManager.save(berthForm);
+    }
+
+    public void createBerthAndWorkProgram(BerthAndWorkProgram berthAndWorkProgram){
+        BerthForm berthForm = dataManager.create(BerthForm.class);
+        berthForm.setBerthName(berthAndWorkProgram.getBerthName());
+        WorkProgram workProgram = dataManager.create(WorkProgram.class);
+        workProgram.setWorkProgram(berthAndWorkProgram.getWorkProgram());
+        workProgram.setBerthForm(berthForm);
+        dataManager.save(berthForm);
+        dataManager.save(workProgram);
     }
 }
